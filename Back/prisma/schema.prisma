@@ -1,0 +1,23 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Comida {
+  id  Int @id @default(autoincrement())
+  nombre String @unique
+  ingredientes Ingrediente[] 
+}
+
+model Ingrediente {
+  id  Int  @id  @default(autoincrement())
+  nombre String
+  comidaId  Int
+  comida Comida @relation(fields: [comidaId], references: [id])
+}
+
